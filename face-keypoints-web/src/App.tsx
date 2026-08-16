@@ -24,7 +24,7 @@ export default function App() {
 
   const loadModel = useCallback(async (url: string) => {
     if (!url.trim()) return;
-    setStatus({ kind: "loading", message: "Downloading model (11MB)…" });
+    setStatus({ kind: "loading", message: "Downloading model, please a second" });
     try {
       const model = await YOLO.load(url.trim(), { litertWasmUrl: "/wasm/" });
       modelRef.current = model;
@@ -70,10 +70,29 @@ export default function App() {
     img.src = url;
   }, []);
 
+  useEffect(() => {
+    const onPaste = (e: ClipboardEvent) => {
+      const files = Array.from(e.clipboardData?.files ?? []);
+      if (files.length === 0) return;
+      const image = files.find((f) => f.type.startsWith("image/"));
+      if (image) {
+        e.preventDefault();
+        void onFile(image);
+      } else {
+        setStatus({
+          kind: "error",
+          message: "This paste isn't an image - paste a PNG, JPG, WebP, GIF, or BMP file.",
+        });
+      }
+    };
+    window.addEventListener("paste", onPaste);
+    return () => window.removeEventListener("paste", onPaste);
+  }, [onFile]);
+
   return (
     <main className="app">
       <header>
-        <h1>Face Key Points — LiteRT.js</h1>
+        <h1>Face Key Points Detection using  LiteRT.js</h1>
         <p>YOLOv8s-pose (WFLW, 5 keypoints) running 100% in your browser via WebGPU/WASM.</p>
       </header>
 
