@@ -10,7 +10,36 @@
 
 **License:-** [![AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue)](LICENSE)
 
-A College Deeplearning Project that builds Face Keypoint Detection with YOLOv8-pose.
+A College Deep Learning Project that builds Face Keypoint Detection with YOLOv8-pose.
+
+---
+
+## 🚀 Live Demo
+
+**Run the model directly in your browser — no server, no install:**
+
+**[https://face-key-points-detection.vercel.app/](https://face-key-points-detection.vercel.app/)**
+
+100% client-side inference (WebGPU with automatic WASM fallback) via [LiteRT.js](https://developers.google.com/edge/litert/web) — the image never leaves the browser.
+
+---
+
+## 🌐 Browser Deployment
+
+The trained model runs in the browser through the LiteRT stack:
+
+- **Convert:** `best.pt → best_w8a32.tflite` — LiteRT export with dynamic INT8 quantization (43.9 MB → 11.4 MB), verified <2px keypoint error vs the original on WFLW test images
+- **Host:** model served from [HuggingFace Hub — AdiKr25/litert-models](https://huggingface.co/AdiKr25/litert-models)
+- **Run:** [`face-keypoints-web/`](face-keypoints-web/) — React + Vite + [`@ultralytics/yolo`](https://www.npmjs.com/package/@ultralytics/yolo), deployed on Vercel
+
+**Run the demo locally:**
+
+```bash
+cd face-keypoints-web
+npm install
+echo "VITE_MODEL_URL=https://huggingface.co/AdiKr25/litert-models/resolve/main/face-keypoints.tflite" > .env.local
+npm run dev
+```
 
 ---
 
@@ -218,13 +247,14 @@ flowchart TD
 ## **Project Structure**
 ```
 ├── face-wflw.ipynb                           # Main Jupyter Notebook
+├── face-keypoints-web/                       # Browser demo app (React + LiteRT.js)
 ├── pose/
 │   ├── train/                                # Training outputs & results
 │   │   └── weights/                          # Saved model weights (best.pt, last.pt, best.onnx)
 │   ├── val/                                  # Validation results & predictions
 │   └── predict/                              # Testing images & outputs
-├── WFLW/                                     # Dataset (train / valid / test)
-├── outputs.zip                               # Zipped run outputs
+├── WFLW/                                     # Dataset (train / valid / test) — local only, not in repo
+├── outputs.zip                               # Zipped run outputs — local only, not in repo
 ├── LICENSE                                   # Project license
 └── README.md                                 # Project documentation
 ```
@@ -234,8 +264,10 @@ flowchart TD
 
 - `Language`:- Python 3.10+
 - `Frameworks/Libraries`:- Ultralytics (YOLO Framework)
-- `Training PLatform`:- Kaggle (Dual T4 GPU)
-- `Dataset PLatform`:- Roboflow Universe
+- `Training Platform`:- Kaggle (Dual T4 GPU)
+- `Dataset Platform`:- Roboflow Universe
+- `Frontend`:- React + Vite + TypeScript, LiteRT.js (`@ultralytics/yolo`)
+- `Deployment`:- HuggingFace Hub (model), Vercel (web app)
 
 ---
 
