@@ -16,6 +16,8 @@ export default function App() {
     DEFAULT_MODEL_URL ? { kind: "loading", message: "Loading model…" } : { kind: "idle" },
   );
   const [fileName, setFileName] = useState<string | null>(null);
+  const [dragActive, setDragActive] = useState(false);
+  const inputRef = useRef<HTMLInputElement | null>(null);
   const modelRef = useRef<YOLO | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const imageRef = useRef<HTMLImageElement | null>(null);
@@ -92,13 +94,32 @@ export default function App() {
         </section>
       )}
 
-      <section className="controls">
-        <label className="file-btn">
-          Choose image
-          <input type="file" accept="image/*" hidden onChange={(e) => void onFile(e.target.files?.[0])} />
-        </label>
-        <span className="file-name">{fileName ?? "no image selected"}</span>
-      </section>
+      <div
+        className={`drop-zone${dragActive ? " drop-zone-dragging" : ""}`}
+        onClick={() => inputRef.current?.click()}
+        onDragOver={(e) => {
+          e.preventDefault();
+          setDragActive(true);
+        }}
+        onDragLeave={() => setDragActive(false)}
+        onDrop={(e) => {
+          e.preventDefault();
+          setDragActive(false);
+          void onFile(e.dataTransfer.files?.[0]);
+        }}
+      >
+        <input
+          ref={inputRef}
+          type="file"
+          accept="image/*"
+          hidden
+          onChange={(e) => {
+            void onFile(e.target.files?.[0]);
+            e.target.value = "";
+          }}
+        />
+        {fileName ?? "Drop an image here or click to browse"}
+      </div>
 
       <p className={`status status-${status.kind}`}>
         {status.kind === "idle" && "Set the model URL above and press Load model."}
