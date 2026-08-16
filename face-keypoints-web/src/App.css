@@ -1,0 +1,110 @@
+:root {
+  color-scheme: dark;
+  font-family: system-ui, -apple-system, sans-serif;
+}
+
+body {
+  margin: 0;
+  background: #0f1115;
+  color: #e6e8eb;
+}
+
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 64px;
+}
+
+header h1 {
+  margin: 0 0 4px;
+  font-size: 1.6rem;
+}
+
+header p {
+  margin: 0 0 24px;
+  color: #9aa3ad;
+}
+
+.model-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+.model-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: #9aa3ad;
+}
+
+.model-form input {
+  padding: 10px 12px;
+  border: 1px solid #2c313a;
+  border-radius: 8px;
+  background: #161a20;
+  color: inherit;
+  font-size: 0.9rem;
+}
+
+.model-form button,
+.file-btn {
+  align-self: flex-start;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  background: #3b82f6;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.model-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.file-btn {
+  background: #232a33;
+  font-size: 0.9rem;
+}
+
+.file-name {
+  color: #9aa3ad;
+  font-size: 0.85rem;
+}
+
+.status {
+  min-height: 1.2em;
+  margin: 0 0 16px;
+  font-size: 0.9rem;
+}
+
+.status-ready {
+  color: #4ade80;
+}
+
+.status-error {
+  color: #f87171;
+}
+
+.status-loading {
+  color: #facc15;
+}
+
+.output {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+  border: 1px solid #2c313a;
+  background: #000;
+}
