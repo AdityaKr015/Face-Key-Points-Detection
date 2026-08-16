@@ -8,31 +8,38 @@
 ![Roboflow](https://img.shields.io/badge/Roboflow-6100ee?logo=roboflow&logoColor=white)
 ![Kaggle](https://img.shields.io/badge/Kaggle-20BEFF?logo=kaggle&logoColor=white)
 
+**Deployment:-**
+![Deployed](https://img.shields.io/badge/status-deployed-2ea44f)
+![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel-000000?logo=vercel)
+![HuggingFace](https://img.shields.io/badge/Model-HuggingFace-FFD21E?logo=huggingface&logoColor=black)
+
 **License:-** [![AGPL-3.0](https://img.shields.io/badge/License-AGPL--3.0-blue)](LICENSE)
 
 A College Deep Learning Project that builds Face Keypoint Detection with YOLOv8-pose.
 
 ---
 
-## 🚀 Live Demo
+## Live Demo
 
-**Run the model directly in your browser — no server, no install:**
+**Run the model directly in your browser - no server, no install:-**
 
-**[https://face-key-points-detection.vercel.app/](https://face-key-points-detection.vercel.app/)**
+**[Test Demo](https://face-key-points-detection.vercel.app/)**
 
-100% client-side inference (WebGPU with automatic WASM fallback) via [LiteRT.js](https://developers.google.com/edge/litert/web) — the image never leaves the browser.
+100% client-side inference (WebGPU with automatic WASM fallback) via [LiteRT.js](https://developers.google.com/edge/litert/web) - the image never leaves the browser.
+
+> **Note:-** I just made a basic version of the demo. Webcam / video input, drag-and-drop and a better ui will be add in the future. For best performance use Chromium based browser (Brave, Chrome etc) for (WebGPU), other browsers automatically fall back to WASM.
 
 ---
 
-## 🌐 Browser Deployment
+## Browser Deployment
 
-The trained model runs in the browser through the LiteRT stack:
+The trained model runs in the browser through the LiteRT stack:-
 
-- **Convert:** `best.pt → best_w8a32.tflite` — LiteRT export with dynamic INT8 quantization (43.9 MB → 11.4 MB), verified <2px keypoint error vs the original on WFLW test images
-- **Host:** model served from [HuggingFace Hub — AdiKr25/litert-models](https://huggingface.co/AdiKr25/litert-models)
-- **Run:** [`face-keypoints-web/`](face-keypoints-web/) — React + Vite + [`@ultralytics/yolo`](https://www.npmjs.com/package/@ultralytics/yolo), deployed on Vercel
+- **Convert:-** `best.pt → best_w8a32.tflite` - LiteRT export with dynamic INT8 quantization (43.9 MB → 11.4 MB), verified <2px keypoint error vs the original on WFLW test images
+- **Host:-** model served from [HuggingFace Hub - AdiKr25/litert-models](https://huggingface.co/AdiKr25/litert-models)
+- **Run:-** [`face-keypoints-web/`](face-keypoints-web/) - React + Vite + [`@ultralytics/yolo`](https://www.npmjs.com/package/@ultralytics/yolo), deployed on Vercel
 
-**Run the demo locally:**
+**Run the demo locally:-**
 
 ```bash
 cd face-keypoints-web
@@ -43,7 +50,7 @@ npm run dev
 
 ---
 
-## 📓 Training Notebook
+## Training Notebook
 
 The full model training pipeline can be found here:
 
@@ -64,6 +71,7 @@ In this project, I built a real-time face keypoint detection system using transf
 - Real-time face detection with keypoint localization.
 - Bounding Box labeled faces with confidence scores.
 - 5 facial keypoints per face with visibility flags.
+- 100% browser-based inference (LiteRT.js + WebGPU) - zero server cost, images never leave the device.
 
 ## **Implementation**
 
@@ -124,7 +132,7 @@ The model was evaluated on a dedicated validation split. Key metrics:
 
 ---
 
-# **Confusion Matrix & Results data**
+## **Confusion Matrix & Results Data**
 
 ### Confusion Matrix (Normalized)
 
@@ -250,7 +258,7 @@ flowchart TD
 ├── face-keypoints-web/                       # Browser demo app (React + LiteRT.js)
 ├── pose/
 │   ├── train/                                # Training outputs & results
-│   │   └── weights/                          # Saved model weights (best.pt, last.pt, best.onnx)
+│   │   └── weights/                          # Saved model weights (best.pt, last.pt, best.onnx, best_w8a32.tflite)
 │   ├── val/                                  # Validation results & predictions
 │   └── predict/                              # Testing images & outputs
 ├── WFLW/                                     # Dataset (train / valid / test) — local only, not in repo
@@ -271,7 +279,7 @@ flowchart TD
 
 ---
 
-## Dataset
+## **Dataset**
 
 ### Dataset Source:-
 
@@ -408,7 +416,7 @@ flowchart TD
 
 ---
 
-## Results:
+## **Results**
 
 ### Evaluation Metrics:- (Final Epoch)
 
